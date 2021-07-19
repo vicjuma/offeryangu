@@ -58,9 +58,10 @@ def allproducts():
 def viewproduct(id):
     signup_form = SignupForm()
     log_form = LoginForm()
+    page= request.args.get('page', type=int)
     product = Product.query.filter_by(id=id).first_or_404()
     pic = Picture.query.filter_by(product_id=id)
-    sim = Product.query.filter_by(category=product.category).all()
+    sim = Product.query.filter_by(category=product.category).paginate(per_page=16)
     review = Reviews.query.filter_by(creator_id=product.id)
     likes = Likes.query.filter_by(product_id=product.id)
     users = User.query.filter_by()
@@ -248,29 +249,12 @@ def search():
     signup_form = SignupForm()
     log_form = LoginForm()
     query = request.args.get('q')
-    category = request.args.get('category', type=str)
-    # subcategory = request.args.get('subcategory', type=str)
-    location = request.args.get('loc')
-    if query != '' and len(query) > 3:
-        if category != 'Categories':
-            output = Product.query.msearch(query).filter_by(category=category)
-            return render_template(
-                'search.html', output=output, cat=cat, loc=loc,
-                sign_form=signup_form, log_form=log_form)
-
-        elif location != 'All in Kenya':
-            output = Product.query.msearch(query).filter_by(location=location)
-            return render_template(
-                'search.html', output=output, cat=cat, loc=loc)
-        elif location != 'All in Kenya' or category != 'Categories':
-            output = Product.query.msearch(query).filter_by(
-                location=location).filter_by(category=category)
-            return render_template(
-                'search.html', output=output, cat=cat, loc=loc)
-        output = Product.query.msearch(query)
+    page = request.args.get('page', type=int)
+    if query != None and len(query) >=2 :
+        output = Product.query.msearch(query).paginate(per_page=16)
         return render_template(
             'search.html', output=output, cat=cat, loc=loc, calendar=calendar,
-            sign_form=signup_form, log_form=log_form)
+            sign_form=signup_form, log_form=log_form, query=query)
     abort(404)
 
 

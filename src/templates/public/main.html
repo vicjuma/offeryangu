@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/css/main.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon"> {{ moment.include_jquery() }} {{ moment.include_moment() }} {% if title %}
 
     <title>OfferYangu | {{title}}</title>
@@ -76,26 +76,7 @@
     <div class="container-fluid-lg jumbotron-fluid">
         <h1 class="display-4-lg">Be the Next to get an Offer</h1>
         <form class="form-inline" action="{{url_for('src.views.products.search')}}" method="GET">
-            <select name="category" class="select">
-                    <option value="Categories" selected>Categories</option>
-
-                    {% for category in cat %}
-
-                        <option value="{{category}}">{{category}}</option>
-
-                    {% endfor %}
-                </select>
             <input type="text" placeholder="I am looking for..." name="q" class="inpfield" autocomplete="off">
-            <select name="loc" class="select" id="location">
-                    <option value="All in Kenya" selected>All in Kenya</option>
-
-                    {% for location in loc %}
-
-                        <option value="{{location}}">{{location}}</option>
-
-                    {% endfor %}
-
-                </select>
             <button type="submit"><i class="bi bi-search"></i>&nbsp;Search</button>
         </form>
         <style>
@@ -248,63 +229,63 @@
     </div>
     <footer id="main-footer">
         <div class="container">
-                <div class="row" id="row-1">
-                    <div class="col-lg-4 col-sm-4 col-xs-6" id="column-1">
-                        <div class="widget">
-                            <h5 class="widgetheading">About Us</h5>
-                            <ul class="link-list">
-                                <li><a href="{{url_for('src.views.users.about')}}">About OfferYangu</a></li>
-                                <li><a href="{{url_for('src.views.users.privacy')}}">Privacy Policy</a></li>
-                                <li><a href="{{url_for('src.views.users.terms')}}">Terms and Conditions</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-4 col-xs-6" id="column-1">
-                        <div class="widget">
-                            <h5 class="widgetheading">How it Works</h5>
-                            <ul class="link-list">
-                                <li><a href="{{url_for('src.views.users.sellers')}}">For Sellers</a></li>
-                                <li><a href="{{url_for('src.views.users.buyers')}}">For Buyers</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-4" id="column-3">
-                        <div class="widget">
-                            <h5 class="widgetheading">Support</h5>
-                            <ul class="link-list">
-                                <li><a href="mailto:info@offeryangu.co.ke">info@offeryangu.co.ke.</a></li>
-                                <li><a href="{{url_for('src.views.users.safety')}}">Safety Tips</a></li>
-                                <li><a href="mailto:info@offeryangu.co.ke">Contact Us</a></li>
-                            </ul>
-                        </div>
+            <div class="row" id="row-1">
+                <div class="col-lg-4 col-sm-4 col-xs-6" id="column-1">
+                    <div class="widget">
+                        <h5 class="widgetheading">About Us</h5>
+                        <ul class="link-list">
+                            <li><a href="{{url_for('src.views.users.about')}}">About OfferYangu</a></li>
+                            <li><a href="{{url_for('src.views.users.privacy')}}">Privacy Policy</a></li>
+                            <li><a href="{{url_for('src.views.users.terms')}}">Terms and Conditions</a></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="row" id="row-2">
-                    <div class="col-xs-4 col-lg-4 col-sm-4" id="column-2"> 
-                        <div class="widget">
-                            <h5 class="widgetheading">Socials</h5>
-                            <ul class="link-list">
-                                <li><a href="#"><span><i class="fa fa-facebook"></i></span> Facebook</a></li>
-                                <li><a href="#"><span><i class="fa fa-instagram"></i></span> Instagram</a></li>
-                                <li><a href="#"><span><i class="fa fa-twitter"></i></span> Twitter</a></li>
-                            </ul>
-                        </div>
+                <div class="col-lg-4 col-sm-4 col-xs-6" id="column-1">
+                    <div class="widget">
+                        <h5 class="widgetheading">How it Works</h5>
+                        <ul class="link-list">
+                            <li><a href="{{url_for('src.views.users.sellers')}}">For Sellers</a></li>
+                            <li><a href="{{url_for('src.views.users.buyers')}}">For Buyers</a></li>
+                        </ul>
                     </div>
-                    <div class="col-xs-5 col-lg-4 col-sm-5" id="column-2-1">
-                        <div class="widget">
-                            <h5 class="widgetheading">Download App</h5>
-                            <ul class="link-list">
-                                <li><a href="#">Coming Soon on:</a></li>
-                                <li><a href="#">Google Play</a></li>
-                                <li><a href="#">App Store</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-lg-4">
-
+                </div>
+                <div class="col-lg-4 col-sm-4" id="column-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">Support</h5>
+                        <ul class="link-list">
+                            <li><a href="mailto:info@offeryangu.co.ke">info@offeryangu.co.ke.</a></li>
+                            <li><a href="{{url_for('src.views.users.safety')}}">Safety Tips</a></li>
+                            <li><a href="mailto:info@offeryangu.co.ke">Contact Us</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+            <div class="row" id="row-2">
+                <div class="col-xs-4 col-lg-4 col-sm-4" id="column-2">
+                    <div class="widget">
+                        <h5 class="widgetheading">Socials</h5>
+                        <ul class="link-list">
+                            <li><a href="#"><span><i class="fa fa-facebook"></i></span> Facebook</a></li>
+                            <li><a href="#"><span><i class="fa fa-instagram"></i></span> Instagram</a></li>
+                            <li><a href="#"><span><i class="fa fa-twitter"></i></span> Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-lg-4 col-sm-5" id="column-2-1">
+                    <div class="widget">
+                        <h5 class="widgetheading">Download App</h5>
+                        <ul class="link-list">
+                            <li><a href="#">Coming Soon on:</a></li>
+                            <li><a href="#">Google Play</a></li>
+                            <li><a href="#">App Store</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-lg-4">
+
+                </div>
+            </div>
+        </div>
         </div>
         <div id="sub-footer">
             <div class="container">
@@ -324,8 +305,7 @@
     <div id="WAButton"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
-        rel="stylesheet" type="text/css" />  
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{{url_for('static', filename='js/floating-wpp.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/whatsapp.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

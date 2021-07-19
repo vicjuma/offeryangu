@@ -95,15 +95,19 @@ def pipe_likes(number):
     return Likes.query.filter_by(product_id=number).count()
 
 
-@login_required
 @app.template_filter('restrictlikes')
 def restrict_likes(product_id):
-    res = []
-    for x in product_id:
-        res.append(x.user_id)
-    if current_user.id in res:
-        return False
-    return True
+    if current_user.is_authenticated:
+        res = []
+        for x in product_id:
+            res.append(x.user_id)
+        if current_user.id in res:
+            return False
+        return True
+
+@app.template_filter('minimizelength')
+def minimizelength(input: str):
+    return input[:100]
 
 
 @app.errorhandler(HTTPException)
@@ -125,6 +129,7 @@ app.jinja_env.filters['round'] = round_discount
 app.jinja_env.filters['likes'] = get_likes
 app.jinja_env.filters['pipe'] = pipe_likes
 app.jinja_env.filters['restrict'] = restrict_likes
+app.jinja_env.filters['minimize'] = minimizelength
 
 
 if __name__ == '__main__':

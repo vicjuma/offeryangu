@@ -1,73 +1,79 @@
-{% block head %}
-{% endblock%}
-{% extends 'public/main.html'%} {% block body %}
-    <div class="homepage-container">
-        <div class="container-fluid all-about-offer-yangu">
-            <div class="row offeryangu-client-protection-row">
-                <div class="col-md-5 offers-in-kenya">
-                    <h2 class="offers-across-kenya">Offers Across Kenya</h2>
-                    <p>OfferYangu is for bargain hunters – we provide a platform for listing genuine offers, deals, discounts, and freebies. We are also committed to providing buyer and seller protection.</p>
-                    <p># Now everyone can save or get better money value. </p>
-                </div>
-                <div class="col slider-info">
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <h2 class="offers-across-kenya">Safety Tips</h2>
-                                <ul class="listing">
-                                    <li>Do not pay in advance (except to OfferYangu Business Till)</li>
-                                    <li>Try to meet at a safe, public location</li>
-                                    <li>Check the item on offer BEFORE you buy it</li>
-                                    <li>Pay only after collecting and inspecting the item</li>
-                                    <li>Never give out your financial information, including mpesa details </li>
-                                </ul>
-                            </div>
-                            <div class="carousel-item">
-                                <h2 class="offers-across-kenya">Buyer Protection</h2>
-                                <ul class="listing">
-                                    <li>Pay through us using our official Business Till</li>
-                                    <li>Inform us via WhatsApp or SMS after making the payment</li>
-                                    <li>We act as a third party</li>
-                                    <li>Inform us via WhatsApp or SMS after collecting the item
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="carousel-item">
-                                <h2 class="offers-across-kenya">How it Works</h2>
-                                <ul class="listing">
-                                    <li>Search for what you want</li>
-                                    <li>Choose from the results</li>
-                                    <li>Contact the seller to know more</li>
-                                    <li>Arrange to meet in a public place</li>
-                                    <li>Examine and collect the item after paying</li>
-                                    <li>Leave feedback and rate the seller</li>
-                                </ul>
-                            </div>
-                            <div class="carousel-item">
-                                <h2 class="offers-across-kenya">OfferYangu Till</h2>
-                                <img src="{{url_for('static', filename='images/business-till.jpg')}}" class="d-block" alt="...">
-                            </div>
+{% block head %} {% endblock%} {% extends 'public/main.html'%} {% block body %}
+<div>
+    {%with messages=get_flashed_messages(with_categories=true)%} {% if messages %} {% for category, message in messages%}
+    <div class="alert alert-{{category}}" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+</div>
+<div class="homepage-container">
+    <div class="container-fluid all-about-offer-yangu">
+        <div class="row offeryangu-client-protection-row">
+            <div class="col-md-5 offers-in-kenya">
+                <h2 class="offers-across-kenya">Offers Across Kenya</h2>
+                <p>OfferYangu is for bargain hunters – we provide a platform for listing genuine offers, deals, discounts, and freebies. We are also committed to providing buyer and seller protection.</p>
+                <p># Now everyone can save or get better money value. </p>
+            </div>
+            <div class="col slider-info">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h2 class="offers-across-kenya">Safety Tips</h2>
+                            <ul class="listing">
+                                <li>Do not pay in advance (except to OfferYangu Business Till)</li>
+                                <li>Try to meet at a safe, public location</li>
+                                <li>Check the item on offer BEFORE you buy it</li>
+                                <li>Pay only after collecting and inspecting the item</li>
+                                <li>Never give out your financial information, including mpesa details </li>
+                            </ul>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="offers-across-kenya">Buyer Protection</h2>
+                            <ul class="listing">
+                                <li>Pay through us using our official Business Till</li>
+                                <li>Inform us via WhatsApp or SMS after making the payment</li>
+                                <li>We act as a third party</li>
+                                <li>Inform us via WhatsApp or SMS after collecting the item
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="offers-across-kenya">How it Works</h2>
+                            <ul class="listing">
+                                <li>Search for what you want</li>
+                                <li>Choose from the results</li>
+                                <li>Contact the seller to know more</li>
+                                <li>Arrange to meet in a public place</li>
+                                <li>Examine and collect the item after paying</li>
+                                <li>Leave feedback and rate the seller</li>
+                            </ul>
+                        </div>
+                        <div class="carousel-item">
+                            <h2 class="offers-across-kenya">OfferYangu Till</h2>
+                            <img src="{{url_for('static', filename='images/business-till.jpg')}}" class="d-block" alt="...">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="home-products" class="container">
-            <h2 class="top-offers">Top Offers</h2>
-            <div class="row">
-                {% for product in products%}
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 mb-4">
-                        <div class="card h-100">
-                            <a href="{{url_for('src.views.products.viewproduct', id=product.id)}}">
-                                <div class="card-img-top id_{{product.id}}">
-                                    <img src="{{url_for('static', filename='images/uploads/'+product.path_1)}}" alt="" style="width: 100%;height:200px;">
-                                </div>
-                            </a>
-                            <div class="commission-btn"><small>{{(((product.market_price - product.price) / product.market_price ) * 100) | round}}% off</small></div>
-                            <div class="like-btn">
-                                {% if current_user.is_authenticated %}
-                                    <small>
+    <div id="home-products" class="container">
+        <h2 class="top-offers">Top Offers</h2>
+        <div class="row">
+            {% for product in products%}
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 mb-4">
+                <div class="card h-100">
+                    <a href="{{url_for('src.views.products.viewproduct', id=product.id)}}">
+                        <div class="card-img-top id_{{product.id}}">
+                            <img src="{{url_for('static', filename='images/uploads/'+product.path_1)}}" alt="" style="width: 100%;height:200px;">
+                        </div>
+                    </a>
+                    <div class="commission-btn"><small>{{(((product.market_price - product.price) / product.market_price ) * 100) | round}}% off</small></div>
+                    <div class="like-btn">
+                        {% if current_user.is_authenticated %}
+                        <small>
                                         {% if product.id | likes | restrict %}
                                             <form action="{{url_for('src.views.products.like', id=product.id)}}" method="POST">
                                                 <button type="submit" class="like-btn-foreign"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
@@ -75,96 +81,91 @@
                                         {% else %}
                                             <button class="like-btn-foreign"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
                                         {% endif %}
-                                    </small> 
-                                {%else%}
-                                    <small>
+                                    </small> {%else%}
+                        <small>
                                         <button class="like-btn-foreign" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
-                                    </small> 
-                                {% endif %}
-                            </div>
+                                    </small> {% endif %}
+                    </div>
 
-                            <div class="card-body">
-                                <h6 class="card-title">
-                                    <a href="" class="product-name">{{product.name}}</a>
-                                </h6>
-                                <small class="canceled">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <a href="" class="product-name">{{product.name}}</a>
+                        </h6>
+                        <small class="canceled">
                                     Ksh.&nbsp;{{product.market_price}}
                                 </small>
-                                <span class="current">Ksh.&nbsp;{{product.price}}&nbsp;&nbsp;&nbsp;</span>
-                                <p>
-                                    <small class="location">Posted from {{product.location}} | offer ending on {{ (product.date_ending).date().day ~ "th" }}&nbsp;{{ calendar.month_abbr[(product.date_ending).date().month] }}&nbsp;{{ (product.date_ending).date().year }}
+                        <span class="current">Ksh.&nbsp;{{product.price}}&nbsp;&nbsp;&nbsp;</span>
+                        <p>
+                            <small class="location">Posted from {{product.location}} | offer ending on {{ (product.date_ending).date().day ~ "th" }}&nbsp;{{ calendar.month_abbr[(product.date_ending).date().month] }}&nbsp;{{ (product.date_ending).date().year }}
                                     </small>
-                                </p>
-                            </div>
-                            <h6 class="categories">
-                                {% if product.id | likes | restrict %}
-                                    <small class="Description"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes | haven't liked this product</small>
-                                {% else %}
-                                    <small class="Description"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;liked</small>
-                                {% endif %}
-                            </h6>
-                        </div>
+                        </p>
                     </div>
-                {% endfor %}
-                <div class="container" style="text-align: center;">
-                    <button class="load-more"><a href="{{url_for('src.views.products.allproducts')}}">Load More</a></button>
+                    <h6 class="categories">
+                        {% if product.id | likes | restrict %}
+                        <small class="Description"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes | haven't liked this product</small> {% else %}
+                        <small class="Description"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;liked</small> {% endif %}
+                    </h6>
                 </div>
             </div>
-            <div class="container protection">
-                <div class="row">
-                    <h2 class="top-offers">Buyer Protection</h2>
-                    <div class="col-md-6">
-                        <ul style="list-style-type:square; margin-left:-2rem;">
-                            <li>
-                                Pay through us using our official till number. You are required to pay the money that you have finally agreed with the seller concerning the item being purchased. Be sure to include the delivery amount if applicable.
-                                <img src="{{url_for('static', filename='images/business-till.jpg')}}">
-                            </li>
-                            <li>Inform us via WhatsApp or SMS after making the payment. You should forward the mpesa transaction message to us and tell us the name of the seller and the item being purchased.
-                            </li>
-                            <li>We act as a third party by holding the money until you collect the item from the seller.
-                            </li>
-                            <li>Inform us after collecting the item via WhatsApp or SMS to release payment to the seller immediately.
-                            </li>
-                            <li>We refund the payment to the buyer in case:
-                                <ol>
+            {% endfor %}
+            <div class="container" style="text-align: center;">
+                <button class="load-more"><a href="{{url_for('src.views.products.allproducts')}}">Load More</a></button>
+            </div>
+        </div>
+        <div class="container protection">
+            <div class="row">
+                <h2 class="top-offers">Buyer Protection</h2>
+                <div class="col-md-6">
+                    <ul style="list-style-type:square; margin-left:-2rem;">
+                        <li>
+                            Pay through us using our official till number. You are required to pay the money that you have finally agreed with the seller concerning the item being purchased. Be sure to include the delivery amount if applicable.
+                            <img src="{{url_for('static', filename='images/business-till.jpg')}}">
+                        </li>
+                        <li>Inform us via WhatsApp or SMS after making the payment. You should forward the mpesa transaction message to us and tell us the name of the seller and the item being purchased.
+                        </li>
+                        <li>We act as a third party by holding the money until you collect the item from the seller.
+                        </li>
+                        <li>Inform us after collecting the item via WhatsApp or SMS to release payment to the seller immediately.
+                        </li>
+                        <li>We refund the payment to the buyer in case:
+                            <ol>
                                 <li>Seller fails to deliver</li>
                                 <li>The item delivered is faulty</li>
-                                </ol>
-                            </li>
-                            <li>We release the money to the seller in case:
-                                <ol>
+                            </ol>
+                        </li>
+                        <li>We release the money to the seller in case:
+                            <ol>
                                 <li>The buyer confirms collecting the item.</li>
                                 <li>The buyer fails to confirm getting hold of the item 24 hrs after making the payment. It is automatically assumed that the buyer collected the item.</li>
-                                </ol>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="{{url_for('static', filename='images/protection.jpeg')}}" alt="" class="img-fluid img-thumbnail rounded mx-auto d-block" style="width:100%; height:auto">
-                    </div>
+                            </ol>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{url_for('static', filename='images/protection.jpeg')}}" alt="" class="img-fluid img-thumbnail rounded mx-auto d-block" style="width:100%; height:auto">
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <h2 class="top-offers">OfferYangu – Bargain Hunters Community Marketplace</h2>
-                    <div class="col-md-6">
-                        <img src="{{url_for('static', filename='images/offers.jpeg')}}" alt="" class="img-fluid img-thumbnail rounded mx-auto d-block" style="width:100%; height:250px">
-                    </div>
-                    <div class="col-md-6">
-                        <p>
-                            Before spending money to buy anything, browse through OfferYangu for a chance to save money or get better value for your money. We are a premium website that provides sellers with a platform to list genuine offers, deals, discounts, freebies, and competitions.
-                        </p>
-                        <p>Basically, any products or services that can make buyers save or get better value on their hard-earned cash! We accumulate offers and discounts in a central location, our website, and social media platforms, making it easier for buyers
-                            to access them. That way, you never miss an offer! Sellers can list their offers quickly and conveniently without discrimination through the 'Submit Free Ad' section.
-                        </p>
-                    </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h2 class="top-offers">OfferYangu – Bargain Hunters Community Marketplace</h2>
+                <div class="col-md-6">
+                    <img src="{{url_for('static', filename='images/offers.jpeg')}}" alt="" class="img-fluid img-thumbnail rounded mx-auto d-block" style="width:100%; height:250px">
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        Before spending money to buy anything, browse through OfferYangu for a chance to save money or get better value for your money. We are a premium website that provides sellers with a platform to list genuine offers, deals, discounts, freebies, and competitions.
+                    </p>
+                    <p>Basically, any products or services that can make buyers save or get better value on their hard-earned cash! We accumulate offers and discounts in a central location, our website, and social media platforms, making it easier for buyers
+                        to access them. That way, you never miss an offer! Sellers can list their offers quickly and conveniently without discrimination through the 'Submit Free Ad' section.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{{url_for('static', filename='js/home.js')}}"></script>
-    {% block scripts%}
-    <script>
-    </script>
-    {% endblock scripts%}
-{% endblock body%} 
+</div>
+<script src="{{url_for('static', filename='js/home.js')}}"></script>
+{% block scripts%}
+<script>
+</script>
+{% endblock scripts%} {% endblock body%}
