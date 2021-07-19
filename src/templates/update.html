@@ -1,0 +1,32 @@
+{% extends 'public/cover.html'%} {% block content %}
+<div class="update-modal">
+    <div class="update-info">
+        <h5 class="text text-capitalize">Update product details</h5>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="name" class="text">Product name</label>
+                <input type="text" class="form-control form-control-sm" name="name" value="{{product.name}}">
+            </div>
+            <div class="form-group">
+                <label for="name" class="text">Product price</label>
+                <input type="text" class="form-control form-control-sm" name="price" value="{{product.price}}">
+            </div>
+            <div class="form-group">
+                <label for="location" class="text">location</label>
+                <select name="location" class="form-control form-control-sm">
+                        <option value="{{product.location}}">{{product.location}}</option>
+                        {% for locs in loc %}
+                            <option value="{{locs}}">{{locs}}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="form-group">
+                <label for="description" class="text">product Description</label>
+                <textarea class="form-control form-control-sm" cols="50" rows="10" name="description">{{product.description}}
+                    </textarea>
+            </div>
+            <input type="submit" value="update product" class="btn btn-danger btn-sm mt-sm-2">
+        </form>
+    </div>
+</div>
+{% endblock content %}

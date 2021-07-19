@@ -1,0 +1,8 @@
+{% extends 'public/main.html'%}
+{% block body %}
+    <div class="container" style="text-align: center">
+        <img src="{{url_for('static', filename='images/404.png')}}" alt="" srcset="" style="width:50%; height:auto;text-align: center">
+        <p style="color: black;font-size:1.2rem">The page you are looking for was not found.</p>
+        <button class="btn btn-primary" style="margin:1rem;"><a href="{{url_for('src.views.products.home')}}" style="color:white">Home</a></button>
+    </div>
+{% endblock body %}

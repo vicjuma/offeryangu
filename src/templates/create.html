@@ -1,0 +1,150 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Create an Offer</title>
+        <meta name="description" content="Simple draggable modal with pure Javascript, inspired by Google Modal.">
+        <meta name="author" content="Marcelo Dolce" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/css/form.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+        <style>
+            @media only screen and (min-width: 980px) {
+                .box {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 55%;
+                }
+            }
+        </style>
+    </head>
+
+    <body class="">
+        <main>
+            <!-- GRID -->
+            <section class="box shadow clearfix">
+                <header class="header">
+                    <i class="icon icon-paragraph-center left"></i>
+                    <h1>
+                        <b>Create an Offer</b>
+                    </h1>
+                    <p>Input the details for your offer</p>
+                    <div class="container-fluid first-container">
+                        {%with messages=get_flashed_messages(with_categories=true)%} 
+                            {% if messages %} 
+                                {% for category, message in messages%}
+                                    <div class="alert alert-{{category}}" role="alert">
+                                        {% with success = get_flashed_messages(category_filter=["success"]) %} 
+                                            {% if success %} {{message ~ " view the "}} <a href="{{url_for('src.views.products.home')}}">product</a>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                                            {%else%} {{message}}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                                            {%endif%} 
+                                        {%endwith%}
+                                    </div>
+                                {% endfor %} 
+                            {% endif %} 
+                        {% endwith %}
+                    </div>
+                </header>
+                <form action="{{url_for('src.views.products.addproduct')}}" class="form-default" method="POST" enctype="multipart/form-data" novalidate>
+                    {{ add_product_form.csrf_token }}
+                    <div class="field g4">
+                        {{add_product_form.product_name.label(for="product_name")}} {{add_product_form.product_name}}
+                    </div>
+                    <div class="field g2 g-attach-right">
+                        {{add_product_form.product_location.label(for="product_location")}} {{add_product_form.product_location}}
+                    </div>
+                    <div class="field g2 g-attach-right">
+                        {{add_product_form.offer_end_date.label(for="end_date")}} {{add_product_form.offer_end_date()}}
+                    </div>
+                    <!-- row -->
+                    <div class="field g2">
+                        {{add_product_form.offer_previous_price.label(for="previous_price")}} {{add_product_form.offer_previous_price}}
+                    </div>
+                    <div class="field g2">
+                        {{add_product_form.offer_current_price.label(for="current_price")}} {{add_product_form.offer_current_price}}
+                    </div>
+                    <!-- row -->
+                    <div class="field g2 g-attach-right">
+                        {{add_product_form.product_category.label(for="category")}} {{add_product_form.product_category}}
+                    </div>
+                    <div class="field g1 g-attach-right g-attach-left">
+                        {{add_product_form.product_subcategory.label(for="subategory")}} {{add_product_form.product_subcategory}}
+                    </div>
+                    <!-- row -->
+                    <div class="field g1 g-attach-right">
+                        {{add_product_form.stock_available.label(for="stock")}} {{add_product_form.stock_available}}
+                    </div>
+                    <div class="field g4 g-attach-left g-attach-right">
+                        {{add_product_form.product_image_one.label(for="image1")}} {{add_product_form.product_image_one(id="image1")}}
+                    </div>
+                    <div class="field g4 g-attach-left g-attach-right" style="margin-bottom: 1rem;">
+                        {{add_product_form.product_image_two.label(for="image2")}} {{add_product_form.product_image_two(id="image2")}}
+                    </div>
+                    <div class="field g4 g-attach-right g-attach-left">
+                        {{add_product_form.product_description.label(for="product_description")}} {{add_product_form.product_description}}
+                    </div>
+                    <div class="field g2 g-attach-left">
+                        {{add_product_form.terms_checkbox.label(for="terms")}} {{add_product_form.terms_checkbox(id="terms")}}
+                    </div>
+                    <div class="field g2 g-attach-left">
+                        {{add_product_form.offer_checkbox.label(for="offer")}} {{add_product_form.offer_checkbox(id="offer")}}
+                    </div>
+                    <div class="field g2 g-attach-left">
+                        {{add_product_form.genuine_checkbox.label(for="terms")}} {{add_product_form.genuine_checkbox(id="terms")}}
+                    </div>
+                    <div class="field g4 g-attach-left">
+                        {{ add_product_form.submit(class="btn btn-primary", id="add_prod", style="outline: none;border:none;background:gold;color:#00008B;padding:.5rem 1rem;border-radius:5px") }}
+                    </div>
+                </form>
+            </section>
+            <!-- GRID -->
+        </main>
+        <script>
+            selected_category = document.getElementById('product_category');
+            selected_subcategory = document.getElementById('product_subcategory');
+            selected_category.onchange = () => {
+                let category_name = selected_category.value;
+                fetch('/subcategory/' + category_name).then(res => res.json()).then((data) => {
+                    let subcategoryOptions = ``;
+                    for (let subcategory of data.subcategories) {
+                        subcategoryOptions += `<option value="${subcategory.id}">${subcategory.subcategory_name}</option>`
+                    }
+                    selected_subcategory.innerHTML = subcategoryOptions;
+                });
+            };
+            $(function() {
+
+                $('.field').on('focusin', 'input, select, textarea', function(event) {
+                    $(this).parent().addClass('focusIn');
+                });
+
+                $('.field').on('focusout', 'input, select', function(event) {
+                    if ($(this).val() == "") {
+                        $(this).parent().removeClass('focusIn');
+                    }
+                });
+
+                $.each($('input, select'), function(index, val) {
+                    if ($(this).val() != "") {
+                        $(this).parent().addClass('focusIn');
+                    }
+                });
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+        {% block scripts%} {% endblock scripts%}
+    </body>
+
+</html>

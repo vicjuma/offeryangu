@@ -1,0 +1,840 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6em;
+    color: #656565;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    position: relative;
+}
+
+nav.navbar{
+    box-shadow: -1px 4px 14px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 4px 14px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 4px 14px 0px rgba(0,0,0,0.75);
+    z-index: 1;
+    background-color: #f8f9fa!important;
+}
+
+nav ul li .nav-link{
+    color: #292B2C !important;
+    font-size: 13px;
+    font-family: Roboto;
+}
+
+nav ul li .nav-link.free-ad{
+    width: 175px;
+    background-color: #3EC46D;
+    color: white !important;
+}
+
+nav .navbar-brand{
+    padding-left: 2rem;
+}
+
+nav .navbar-brand img{
+    border-radius: 50%;
+}
+
+nav .navbar-brand .offer{
+    color:blue; 
+    font-weight: 500;
+}
+
+nav .navbar-brand .yangu{
+    color: gold; 
+    font-weight:700;
+}
+
+
+a:active, a:link, a:hover {
+    text-decoration: none;
+}
+
+.canceled{
+    font-size: .7rem; 
+    text-decoration: line-through;
+}
+
+.categories{
+    margin-top: -.5rem;;
+}
+
+.product-name{
+    color: #00008B;
+    font-size: 1.2rem;
+}
+
+
+h5 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    line-height: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container {
+    padding: 0 20px 0 20px;
+    position: relative;
+}
+
+.row {
+    margin-bottom: 30px;
+}
+
+.row .row {
+    margin-bottom: 30px;
+}
+
+.form-inline {
+    width: 100%;
+    text-align: center;
+}
+
+.form-inline input {
+    vertical-align: middle;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.form-inline label{
+    font-size: 1.5rem;
+    margin-right: -.1rem;
+    box-sizing: border-box;
+    border-right: none;
+    height: 38px;
+    padding: 10px;
+}
+
+.form-inline select#location{
+    border-left: none;
+}
+
+.form-inline input{
+    margin-right: 0px;
+    margin-left: 10px;
+    height: 40px;
+    width:40%;
+}
+
+.form-inline select {
+    vertical-align: middle;
+    height: 40px;
+    padding: 10px;
+    outline: none;
+    background-color: #fff;
+}
+
+.form-inline button {
+    vertical-align: middle;
+    padding: 5px 10px 10px 10px;
+    background-color: #3Ec46D;
+    border: 1px solid #3Ec46D;
+    color: white;
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+}
+
+.form-inline button:hover {
+    background-color: #3Ec46D;
+}
+
+.form-inline input,
+.form-inline select,
+.form-inline button, 
+.form-inline label {
+    line-height: 1.7;
+}
+
+.description{
+    color: #292B2C !important
+}
+
+.current{
+    margin-left: 1rem;
+    color: #292B2C;
+}
+
+.location{
+    color: black;
+    font-size: 12px;
+}
+
+.posted-on{
+    padding-top: 2rem;
+}
+strong{
+    font-weight: bold;
+}
+
+.modal.login-modal form{
+    font-family: 'Times New Roman', Times, serif
+}
+
+.modal.login-modal #errMsg {
+    display: none;
+    font-size: 0.8em;
+  }
+  
+.modal.login-modal #errMsg.visible {
+    display: block;
+}
+
+.modal.login-modal #errMsg.invalid {
+    color: red;
+  }
+  
+.jumbotron-fluid {
+    width: 100%;
+    padding: 2rem 1rem 0;
+    background-image: linear-gradient(90deg, #00f, #00008b, #00f);
+    padding-top: 120px;
+}
+
+.jumbotron-fluid h1{
+    color: white; 
+    text-align: center;
+    padding-bottom: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 28px;
+}
+
+.offers-across-kenya,
+.top-offers {
+    padding-top: 2rem;
+    font-size: 24px !important;
+    text-align: left !important;
+}
+
+.offers-across-kenya{
+    color: green;
+}
+
+.top-offers {
+    color: #00008B;
+}
+
+.load-more a{
+    text-decoration: none;
+    color: white;
+}
+
+.load-more{
+    background-color: #3EC46D;
+    outline: none;
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+}
+
+.like-btn{
+    position: absolute; 
+    top:-1rem;
+    left:0; 
+    color: #eeeeee;
+    padding: .1rem;
+    border-radius: 5px;
+}
+
+.like-btn-foreign{
+    background-color: rgba(0, 0, 139, .5); 
+    border-radius: 10px; 
+    border-style: none; 
+    color: white;
+}
+
+.commission-btn{
+    position: absolute; 
+    top:-1rem; right:0; 
+    color: #8A2BE2;
+    background-color: #ffd700;
+    padding: .1rem;
+    border-radius: 5px;
+}
+
+.about-us,
+.slider-info {
+    padding: 2rem;
+    border-radius: 10px;
+    margin-left: 1rem;
+    border-radius: 10px;
+}
+
+.about-us,
+.slider-info,
+.about-us,
+.offers-in-kenya{
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.slider-info{
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 300px;
+}
+
+.slider-info img{
+    width: 60%;
+    height: 160px;
+}
+
+.all-about-offer-yangu{
+    background-color: #f8f9fa!important;
+    width: 100%;
+    margin: 0;
+    margin-right: 0 !important;
+    padding: 1rem 2rem 0 2rem;
+}
+
+.listing {
+    list-style-type: square;
+}
+
+ul.link-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.link-list li {
+    margin: 0;
+    padding: 2px 0 2px 0;
+    list-style: none;
+}
+
+footer {
+    background: linear-gradient(270deg, #1DA1F2, #1DB6F2);
+}
+
+footer ul.link-list li a {
+    color: white;
+}
+
+footer ul.link-list li a:hover {
+    color: rgbs(0, 0, 0, .5);
+}
+
+
+/* --- Heading style --- */
+
+.widgetheading {
+    width: 100%;
+    padding: 0;
+}
+
+footer .widgetheading {
+    position: relative;
+}
+
+footer .widget .social-network {
+    position: relative;
+}
+
+footer .widget .widgetheading span {
+    position: absolute;
+    width: 60px;
+    height: 1px;
+    bottom: -1px;
+    right: 0;
+}
+
+
+/* --- Map --- */
+
+
+/* ===== Widgets ===== */
+
+
+/* --- flickr --- */
+
+
+/* --- Recent post widget --- */
+
+footer {
+    padding: 50px 0 0 0;
+    color: #080808;
+}
+
+footer a {
+    color: #000;
+}
+
+footer a:hover {
+    color: #000;
+}
+
+footer h5 {
+    color: #fff;
+}
+
+footer address {
+    line-height: 1.6em;
+    color: #FFFFFF;
+}
+
+footer h5 a:hover,
+footer a:hover {
+    text-decoration: none;
+}
+
+ul.social-network {
+    list-style: none;
+    margin: 0;
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px;
+}
+
+#sub-footer {
+    text-shadow: none;
+    color: #f5f5f5;
+    padding: 0;
+    padding-top: 30px;
+    margin: 20px 0 0 0;
+    background: linear-gradient(90deg, #1DA1F2, #1DB6F2);
+}
+
+#sub-footer p {
+    margin: 0;
+    padding: 0;
+}
+
+#sub-footer span {
+    color: #f5f5f5;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 12px;
+}
+
+#sub-footer ul.social-network {
+    float: right;
+}
+
+footer .main-footer{
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+}
+
+.pagination{
+    text-align: center;
+    background-color: white;
+}
+
+.pagination a{
+    text-align: center;
+    font-size: 18px;
+    display: block;
+    color: #00008B;
+    padding: .25rem .5rem;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+/* scroll to top */
+
+
+/*============================= */
+
+
+/*  Media queries 
+  ============================= */
+
+@media (max-width: 767px) {
+    body {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    footer .col-lg-3,
+    footer .col-lg-6 {
+        margin-bottom: 20px;
+    }
+    #sub-footer ul.social-network {
+        float: left;
+    }
+    [class*="span"] {
+        margin-bottom: 20px;
+    }
+}
+
+.card-img-top img {
+    width: 100%;
+    height: 100%;
+}
+
+.modal.signup-modal form input{
+    border: 1px solid #48C77a;
+}
+
+.modal.signup-modal form input[type="submit"]{
+    background-color: #00008B;
+}
+
+.modal.signup-modal form{
+    color: black;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: .8rem;
+}
+
+.modal.signup-modal .modal-content{
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+@media screen and (max-width: 300px) {
+    #home-products h2{
+        position: absolute;
+        top: 20px;
+        margin-top: 20px;
+    }
+    #carouselExampleControls{
+        max-height: 50px; 
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #home-products h2{
+        margin-top: 20px;
+    }
+
+    #carouselExampleControls{
+        max-height: 50px; 
+    }
+}
+
+@media only screen and (min-width:240px) and (max-width: 576px) {
+    #row-1{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    #column-1{
+        width: 45%;
+    } 
+    #row-1{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #column-2{
+        width: 45%;
+    } 
+    #column-2-1{
+        width: 50%;
+    }
+    #column-3{
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 10px;
+    }
+}
+
+
+
+
+/* ================================== PRODUCT PAGE STYLES ============================*/
+#content-wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.column-img{
+	width: 800px;
+	padding: 10px;
+
+}
+
+#featured-image{
+    width: 100%;
+    height: 500px;
+    margin-top: 0;
+	object-fit: cover;
+	cursor: pointer;
+	border: none;
+    border: none;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+}
+
+.item-description{
+    font-size: .8rem;
+}
+
+.thumbnail{
+	object-fit: cover;
+	width: 30%;
+    height: auto;
+	max-height: 100px;
+	cursor: pointer;
+	opacity: 0.5;
+	margin: 5px;
+	border: none;
+    background-color: transparent;
+
+}
+
+.thumbnail:hover{
+	opacity:1;
+}
+
+.active{
+	opacity: 1;
+}
+
+.price{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.canceled{
+    text-decoration: line-through;
+    font-size: .8rem;
+}
+
+.showinfo{
+    width:100%;
+    background-color:transparent;
+    border: 2px solid #00008B;
+    outline:none;
+    color: #00008B;
+    padding:.5rem
+}
+
+.owner-gravatar{
+    width: 75%;
+}
+
+.owner-info{
+    display: inline;
+    margin-top: -1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+}
+
+.product-tips{
+    margin-top: 2rem;
+}
+
+.flexdiv{
+    display: flex;
+}
+
+#slide-wrapper{
+	max-width: 500px;
+	display: flex;
+	min-height: 100px;
+	align-items: center;
+    margin-top: 2rem;
+}
+
+#slider{
+	width: 500px;
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+
+}
+
+
+.arrow{
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.arrow:hover{
+	opacity: .5;
+	width: 35px;
+	height: 35px;
+}
+
+
+/* ========================================= ABOUT PAGE==================== */
+
+
+/* ===================================== MEDIA QUERIES ================================*/
+
+@media screen and (max-width: 900px) {
+    #home-products h2{
+        margin-top: 0 !important
+    }
+}
+
+@media (min-width: 960px) {
+    nav{
+        height: 85px;
+    }
+
+    .featured-div{
+        width: 100%;
+        height: 800px;
+    }
+    
+    nav img{
+        width: 45px;
+        height: auto;
+        margin-right: .2rem;
+    }
+    
+    nav li .free-ad{
+        text-decoration: none; 
+        text-align: center; 
+        vertical-align:top; 
+        background-color: #3Ec46D;
+    }
+    
+    #brand{
+        padding-right:50px;
+        font-size: 16px;
+        margin-right:100px;
+    }
+    .all-about-offer-yangu{
+        height: 250px;
+    }
+    .details{
+        padding-top: 1rem;
+    }
+    .details-price{
+        margin-bottom: 1rem;
+    }
+    .owner-card.details-price{
+        background-color: white;
+        padding-bottom: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 2rem;
+    }
+    .about-page{
+        width:60%;
+        margin:0 auto;
+        padding-top:2rem;
+    }
+    .for-sellers{
+        width:60%;
+        margin:0 auto;
+        padding-top:2rem;
+    }
+    .safety-tips-offeryangu{
+        width:60%;
+        margin:0 auto;
+        padding-top:2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .featured-div{
+        width: 100%;
+        height: 150px;
+    }
+    .column-img {
+        width: 100%;
+    }
+    .form-inline input,
+    .form-inline select,
+    .form-inline button,
+    .form-inline label {
+        margin: 10px 5px;
+        width: 100%;
+    }
+
+    nav .collapse ul{
+        padding-left: 2rem;
+    }
+    nav .collapse ul li{
+        border-bottom: 2px solid rgba(41, 43, 44, .7);
+    }
+    nav ul li#free-ad{
+        border: none !important;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .slider-info {
+        padding: 0 !important;
+    }
+
+    .slider-info img{
+        width: 85% !important;
+        height: auto !important;
+        padding-bottom: .5rem;
+    }
+
+    .slider-info .listing{
+        margin-left: -1rem;
+    }
+    .about-us h2,
+    .slider-info h2,
+    .headings {
+        font-size: 18px;
+        text-align: center;
+    }
+    .products{
+        margin-top: 100px;;
+    }
+    .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .all-about-offer-yangu{
+        padding-bottom: 0;
+        height: 520px;
+        padding-top: 0 !important;
+        font-size: 16px !important;
+    }
+
+    .protection ul li{
+        margin-left: -1rem;
+    }
+
+    .protection img{
+        width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+
+    #featured-image{
+        width: 100%;
+        height: auto;
+    }
+    .showinfo{
+        margin-bottom: 24px;
+        margin-top: 24px;
+    }
+
+    .owner-image{
+        display: block;
+        width: 30%;
+    }
+
+    .owner-name{
+        padding-top: 2rem;
+    }
+    .about-page{
+        margin-top: 2rem;
+    }
+    
+}
+
+/* ================================= UPLOAD PRODUCT FORM ================================ */
+

@@ -1,0 +1,12 @@
+{% extends 'public/cover.html' %}
+{% block content %}
+    <div class="update-modal">
+        <h3>Add more images</h3>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="pic" class="form-control form-control-sm">
+            </div>
+            <input type="submit" value="Add picture" class="btn btn-success btn-sm mt-sm-2">
+        </form>
+    </div>
+{% endblock content %}

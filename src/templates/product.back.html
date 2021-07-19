@@ -1,0 +1,211 @@
+{% extends 'public/main.html'%} {% block head%}
+<style>
+    body {
+        background-color: #f8f9fa !important;
+    }
+    
+    @media (min-width: 960px) {
+        .jumbotron-fluid h1 {
+            display: none;
+        }
+        .jumbotron-fluid {
+            height: 150px;
+            padding-top: 100px;
+            border-radius: 0;
+            margin-bottom: 2rem;
+        }
+        .jumbotron-fluid input,
+        .jumbotron-fluid select,
+        .jumbotron-fluid button {
+            height: 30px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+</style>
+{% endblock head%} {% block body %}
+<div class="container-fluid">
+    {%with messages=get_flashed_messages(with_categories=true)%} 
+        {% if messages %} 
+            {% for category, message in messages%}
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %} 
+        {% endif %} 
+    {% endwith %}
+</div>
+<section class="container-fluid" style="margin-top: 2rem;">
+    <div class="row">
+        <div class="column-img col-md-9 col-sm-12" style="position: relative;">
+            <img id="featured-image" src="{{url_for('static', filename='images/uploads/'+product.path_1)}}">
+            <div style="position: absolute; top:0;right:1rem; color: #8A2BE2;background-color: #ffd700;padding: .5rem;border-radius: 5px;">
+                <small>
+                        {{(((product.market_price - product.price) / product.market_price ) * 100) | round}}% off  
+                    </small>
+            </div>
+            <div style="position: absolute; top:0;left:1rem; color: #eeeeee;padding: .5rem;border-radius: 5px;height:50px">
+                {% if current_user.is_authenticated %}
+                <small>
+                            {% if product.id | likes | restrict %}
+                                <form action="{{url_for('src.views.products.like', id=product.id)}}" method="POST">
+                                    <button type="submit" style="background-color: rgba(0, 0, 139, .5);height:40px; border-style: none; color: white;padding:.5rem;"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
+                                </form>
+                            {% else %}
+                                <button style="background-color: rgba(0, 0, 139, .5); border-radius: 5px; height:40px; border-style: none; color: white;"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
+                            {% endif %}
+                        </small> {%else%}
+                <small>
+                            <button style="background-color: rgba(0, 0, 139, .5); border-radius: 5px; border-style: none; height:40px; color: white;width:50px;" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                <i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes
+                            </button>
+                        </small> {% endif %}
+            </div>
+            <div id="slide-wrapper">
+                <img id="slideLeft" class="arrow" src="{{url_for('static', filename='images/arrow-left.png')}}">
+                <div id="slider">
+                    <img class="thumbnail active" src="{{url_for('static', filename='images/uploads/'+product.path_1)}}"> {% if product.path_2 %}
+                    <img class="thumbnail" src="{{url_for('static', filename='images/uploads/'+product.path_2)}}"> {% for pics in pic.all() %}
+                    <img class="thumbnail" src="{{url_for('static', filename='images/uploads/'+pics.path)}}"> {% endfor %} {% endif %}
+                </div>
+                <img id="slideRight" class="arrow" src="{{url_for('static', filename='images/arrow-right.png')}}">
+            </div>
+            <div class="description">
+                <h2>{{product.name}} | {{product.category}} in {{product.location}} at {{product.price}}</h2>
+                {% if product.description_html%} {{product.description_html | safe }} {%else%} {{product.description}} {% endif %}
+            </div>
+        </div>
+        <div class=" col-md-3 col-sm-12 details">
+            <div class="owner-card details-price">
+                <p>
+                    <span class="canceled">Ksh {{product.market_price}}
+                        </span><span class="price">&nbsp;&nbsp;&nbsp;&nbsp;Ksh {{product.price}} </span></p>
+                <br> {% if current_user.is_authenticated %}
+                <button class="showinfo"><i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;&nbsp;Show Contact</button> {% else %}
+                <button class="showinfo" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"><i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;&nbsp;Show Contact</button> {% endif %}
+            </div>
+            <div class="owner-card details-price">
+                <div class="flexdiv">
+                    <div class="owner-image">
+                        <img src="{{url_for('static', filename='images/profile_pics/'+product.needs.user_img)}}" alt="" class="owner-gravatar">
+                    </div>
+                    <div class="details owner-info">
+                        <h6 class="owner-name" style="font-size: 1rem;">{{product.needs.name}}</h6>
+                        <small>Last Seen: {{moment(product.date_created).format('MMMM Do YYYY h:mm:ss a')}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="owner-card details-price">
+                {% if current_user.is_authenticated %} {% if product.needs.id != current_user.id%}
+                <button type='submit' class="showinfo" id="start-chatting">
+                                    start messaging
+                                </button> {% endif %} {% else %}
+                <button class="showinfo" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"><i class="bi bi-chat-dots-fill"></i>&nbsp;&nbsp;&nbsp;Start Messaging</button> {% endif %}
+                <div class="product-tips">
+                    <h4>Safety tips</h4>
+                    <ul class="listing">
+                        <li>Do not pay in advance (except to OfferYangu Business Till)</li>
+                        <li>Try to meet at a safe, public location</li>
+                        <li>Check the item on offer BEFORE you buy it</li>
+                        <li>Pay only after collecting and inspecting the item</li>
+                        <li>Never give out your financial information, including mpesa details </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="owner-card">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <h3>Product reviews and ratings
+        <small class="badge badge-danger">{{review.count()}}</small>
+    </h3>
+    {% for reviews in review.all()%}
+    <div style="padding: 10px; margin-bottom: 5px;">
+        <div style="display: flex;width: 100%; height: auto;">
+            <div>
+                <img src="{{reviews.reviews.generate_gravatar()}} " alt=" " style="width: 40px; border-radius:50%;">
+            </div>
+            <div class="details" style="padding-left: .5rem;">
+                <h6 class="owner-name" style="font-size: 1rem;">{{reviews.reviews.name}}</h6>
+                <small>on {{moment(product.date_created).format('MMMM Do YYYY h:mm:ss a')}}</small>
+            </div>
+        </div>
+        <div class="mt-lg-2">
+            <h6 class="item-description">{{product.name}}| {{product.category}} </h6>
+        </div>
+        <div>
+            {{reviews.message}}
+        </div>
+    </div>
+    {% endfor %} {% if current_user.is_authenticated %} {% if product.needs.id != current_user.id%}
+    <form action="{{url_for('src.views.products.add_review', id=product.id)}}" method="POST">
+        <div class="form-group">
+            <textarea name="review" id="review" rows="5" class="form-control form-control-md"></textarea>
+        </div>
+        <button type="submit" style="background-color:#00008B;outline:none;border:none;color:white;padding:.5rem;margin-top:1rem;">Add a Review</button>
+    </form>
+    {% endif%} {% else %} {% if current_user.is_authenticated %}
+    <button class="showinfo" style="background-color:#00008B;outline:none;border:none;color:white;padding:.5rem;margin-top:1rem;" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Add a Review</button> {% endif %} {%endif%}
+</section>
+<div class="container">
+    <h4>Similar adverts</h4>
+</div>
+{% for cats in sim %} {% if not cats.id == product.id%}
+<a href="{{url_for( 'src.views.products.viewproduct', id=cats.id)}} ">
+
+    <div class="card mb-3" style="max-width: 80%; margin: auto">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{url_for( 'static', filename='images/uploads/' +cats.path_1)}}" class="img-fluid rounded-start" style="padding-top: 2rem;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h4>{{cats.name}} at {{cats.price}}</h4>
+                            {% if cats.description_html%} {{cats.description_html | safe }} {%else%} {{cats.description}} {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+{% endif %} {% endfor %} {% block scripts %}
+<script type="text/javascript " src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js "></script>
+<script src="{{url_for( 'static', filename='js/product.js' )}} "></script>
+{% if current_user.is_authenticated %}
+<script>
+    $(document).ready(function() {
+        $("#start-chatting").on("click", function(event) {
+            event.preventDefault();
+
+            var formValues = $(this).serialize();
+
+            const url = "{{url_for( 'src.views.products.follow', id=product.needs.id)}}"
+
+            alert
+
+            fetch(url, {
+                method: "POST",
+                credentials: "include",
+                cache: "no-cache",
+                headers: new Headers({
+                    "content-type": "applications/json"
+                })
+            }).then((response) => response.json()).then((content) => {
+                location.replace("{{url_for('chat', clientid=current_user.id, sellerid=product.needs.id)}}")
+            })
+        });
+    });
+
+    let infobtn = document.querySelector('.showinfo')
+
+    infobtn.addEventListener('click', () => {
+        infobtn.innerHTML = "{{product.needs.phone}}"
+    })
+</script>
+{% endif %} {% endblock scripts %} {% endblock body%}

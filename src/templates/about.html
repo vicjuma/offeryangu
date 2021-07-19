@@ -1,0 +1,41 @@
+{% extends 'public/main.html'%}
+{% block body %}
+{% block head%}
+    <style>
+        @media (min-width: 960px){
+            .jumbotron-fluid h1{
+                display:none;
+            }
+            .jumbotron-fluid {
+                height:150px;
+                padding-top: 100px;
+                border-radius: 0;
+                margin-bottom: 2rem;
+            }
+            .jumbotron-fluid input,
+            .jumbotron-fluid select,
+            .jumbotron-fluid button {
+                height:30px;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
+    </style>
+{% endblock %}
+
+    <div class="container">
+        <div class="row about-page">
+            <h2>About OfferYangu</h2>
+            <div class="col">
+                <p>OfferYangu is for bargain hunters – we provide a platform for sellers to list genuine offers, deals, discounts, and freebies. Before spending money to buy anything, browse through OfferYangu for a chance to save money or get better value for your money. 
+                </p>
+                <p>To drive sales, sellers are always offering discounts and deals to make more sales. They even go ahead and print posters and stick them outside their business premises. Others design and promote their offers on various social media platforms, hoping to drive up sales. We eliminate all this by providing sellers with an open marketplace to list their offers for free and reach thousands of interested buyers. 
+                </p>
+                <p>On the flip side, buyers are always looking for opportunities to save money while shopping. They are interested in deals and offers that will save them an extra coin or gain better value for their money. We, as OfferYangu, consolidate all genuine offers, deals, discounts, and freebies in one online marketplace. By doing this, buyers can easily find them.
+                </p>
+                <p>OfferYangu is an online marketplace where you can find all offers, discounts, and deals. We constitute the largest bargain hunters community in Kenya.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

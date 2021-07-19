@@ -1,0 +1,302 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/floating-wpp.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/dash.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/account.css')}}">
+        <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <title>offeryangu | account</title>
+    </head>
+    <body>
+        <div class="navbar-container">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="mr-auto p-2 bd-highlight">
+                    <a href="{{url_for('src.views.products.home')}}">
+                        <img src="{{url_for('static', filename='images/logo.jpeg')}}" alt="" style="border-radius:50%; width:40px;margin-right:.5rem">
+                        <span style="color:blue; font-weight: 500;">Offer</span>
+                        <span style="color: gold; font-weight:700;">Yangu</span>
+                    </a>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <a href="{{url_for('src.views.products.home')}}">
+                        <button type="button" id="logout-button" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-log-out" style="color: black;"> 
+                                <a href="{{url_for('src.views.users.logout')}}" style="color: black;"> logout</a>
+                            </span>
+                        </button>
+                    </a>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <a href="{{url_for('src.views.products.home')}}">
+                        <button type="button" id="pricing-button" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-home" style="color: black;"> 
+                                <a href="{{url_for('src.views.products.home')}}" style="color: black;">&nbsp;Home</a>
+                            </span>
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <!-- container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="accordion" style="background-color: #00008B;">
+                        <h5 class="accordion__items">My account</h5>
+                        <div class="accordion__content">
+                            <p class="accordion__content__txt">
+                                <ul class="list-group">
+                                    <li class="list-group-item accordion-list"><a href="{{url_for('src.views.products.account')}}" style="color: black;"><i class="fas fa-home"></i> My personal area</a></li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h5 class="accordion__items">My ads</h5>
+                        <div class="accordion__content">
+                            <p class="accordion__content__txt">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="" data-toggle="modal" data-target="#productModal">My products <small class="badge badge-danger" style="border-radius: 50px;">{{products.count()}}</small></a></li>
+                                    <li class="list-group-item"><a href="" class="my-messages" data-toggle="modal" data-target="#MessagingModal">My messages</a></li>
+                                </ul>
+                            </p>
+                        </div>
+
+                        {% if current_user.is_admin == True%}
+
+                            <h4 class="accordion__items">Users 
+                                <small class="badge badge-danger">{{users.count()}}</small>
+                            </h4>
+                            <div class="accordion__content">
+                                <p class="accordion__content__txt">
+                                    <ul class="list-group">
+
+                                        {% for client in users.all()%}
+
+                                            <li class="list-group-item">
+                                                <a href="{{url_for('src.views.users.deleteuser', id=client.id)}}">{{client.name}}</a>
+                                            </li>
+
+                                        {% endfor %}
+
+                                    </ul>
+                                </p>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-lg-9">
+
+                    {% block content %} {% endblock content%}
+
+                </div>
+            </div>
+        </div>
+        <!-- modal for my products -->
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="modal2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">My Products</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="table-products">
+                            <thead>
+                                <tr>
+                                    <td>product id </td>
+                                    <td>product name</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+
+                            {% for prod in products.all()%}
+
+                                <tbody>
+                                    <tr>
+                                        <td>{{prod.id}}</td>
+                                        <td>{{prod.name}}</td>
+                                        <td>
+                                            <br/>
+                                            <form action="{{url_for('src.views.products.deleteprod', id=prod.id)}}" method="POST">
+                                                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                                            </form>
+                                        </td>
+                                        <td><a style="font-size: 12px;" href="{{url_for('src.views.products.updateproduct', id=prod.id)}}">Update</a></td>
+                                        <td style="padding: 2px"><a style="font-size: 12px" href="{{url_for('src.views.products.addphotos', id=prod.id)}}">Add Images</a></td>
+                                    </tr>
+                                </tbody>
+
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- messaging modal -->
+        <div class="modal fade" id="MessagingModal" tabindex="-1" role="dialog" aria-labelledby="modal2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Messages</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>user name </td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+
+                            {% for user in users.all()%}
+
+                                <tbody>
+
+                                   {% if not user.id == current_user.id and current_user.is_following(user.name) or user.is_following(current_user.name)%}
+
+                                            <tr>
+                                                <td>{{user.name}}</td>
+                                                <td><a href="{{url_for('chat', clientid=current_user.id,sellerid=user.id)}}">Start chat</a></td>
+                                            </tr>
+                                            
+
+                                    {% endif %}
+                                    
+                                </tbody>
+
+                            {% endfor %}
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" class="footer-1" style="bottom: 0 !important;">
+            <div class="main-footer widgets-dark typo-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4">
+                            <div class="widget subscribe no-box">
+                                <h5 class="widget-title">About Us</h5>
+                                <ul class="thumbnail-widget">
+                                    <li>
+                                        <div class="thumb-content"><a href="{{url_for('src.views.users.about')}}">About offeryangu</a></div>
+                                    </li>
+                                    <li>
+                                        <div class="thumb-content">
+                                            <a href="{{url_for('src.views.users.privacy')}}">Pricacy Policy </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="thumb-content"><a href="{{url_for('src.views.users.terms')}}">Terms and Conditions</a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                         <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4" style="margin: 0;">
+                            <div class="widget no-box">
+                                <h5 class="widget-title">Support</h5>
+                                <ul class="thumbnail-widget">
+                                    <li>
+                                        <div class="thumb-content"><a href="mailto:info@offeryangu.co.ke">info@offeryangu.co.ke</a></div>
+                                    </li>
+                                    <li>
+                                        <div class="thumb-content"><a href="{{url_for('src.views.users.safety')}}">Safety Tips </a></div>
+                                    </li>
+                                    <li>
+                                        <div class="thumb-content"><a href="mailto:info@offeryang.co.ke">Contact Us </a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="widget no-box">
+                                <h5 class="widget-title">How it Works</h5>
+                                <ul class="thumbnail-widget">
+                                    <li>
+                                        <div class="thumb-content"><a href="{{url_for('src.views.users.sellers')}}">For Sellers</a></div>
+                                    </li>
+                                    <li>
+                                        <div class="thumb-content"><a href="{{url_for('src.views.users.buyers')}}">For Buyers </a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div class="widget no-box">
+                                    <h5 class="widget-title">Socials</h5>
+                                    <ul class="thumbnail-widget">
+                                        <li>
+                                            <div class="thumb-content"><a href="https://www.youtube.com/"><span><i class="fa fa-facebook"></i></span> Facebook</a></div>
+                                        </li>
+                                        <li>
+                                            <div class="thumb-content"><a href="https://www.instagram.com/"><span><i class="fa fa-instagram"></i></span> Instagram</a></div>
+                                        </li>
+                                        <li>
+                                            <div class="thumb-content"><a href="https://twitter.com"><span><i class="fa fa-twitter"></i></span> Twitter</a></div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4">
+                                <div class="widget no-box">
+                                    <h5 class="widget-title">Download App</h5>
+                                    <ul class="link-list">
+                                        <li><a href="#">Coming Soon on:</a></li>
+                                        <li><a href="#">Google Play</a></li>
+                                        <li><a href="#">App Store</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>Copyright OfferYangu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="WAButton"></div>
+        </footer>
+        <script type="text/javascript" src="{{url_for('static', filename='js/floating-wpp.min.js')}}">
+        </script>
+        <script src="{{url_for('static', filename='js/whatsapp.js')}}"></script>
+        <script src="{{url_for('static', filename='js/account.js')}}"></script>
+        {% block scripts %} 
+        {% endblock scripts%}
+    </body>
+
+</html>

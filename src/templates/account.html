@@ -1,0 +1,78 @@
+{% extends 'public/cover.html'%} 
+{% block content %} 
+
+    <div style="color: white;">
+        <div class="avatar-container">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="mr-auto p-2 bd-highlight">
+                    <a href="#"><img id="avatar_image" src="{{user_img}}" alt="Avatar_Name"></a>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="left-icon-container">
+                        <i class="fas fa-envelope ln-shadow"></i>
+                    </div>
+                    <a href="#" data-toggle="modal" data-target="#MessagingModal">
+                        <!--to be fetched from database-->
+                        <span class="badge">{{rec.count()}}</span>
+                        <span class="avatar-links">messages</span>
+                    </a>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="left-icon-container">
+                        <i class="fas fa-shopping-bag ln-shadow"></i>
+                    </div>
+                    <a href="" data-toggle="modal" style="color:white" data-target="#productModal">
+                        <span class="badge badge-danger" style="color:white">{{products.count()}}</span>
+                        <span class="avatar-links">products</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="profile-container">
+            <div class="welcome-message">
+                <h3 style="font-weight: 700;">Hello {{current_user.name}} !</h3>
+                <!-- <span id="login-timestamp">You last logged in at {{moment(current_user.last_seen).format('MMMM Do YYYY h:mm:ss a')}}</span> -->
+            </div>
+            <br>
+            <div class="card text-center">
+                <div id="avatar-card-header" class="card-header">
+                    <h5>Account Details</h5>
+                </div>
+                <div class="card-body" id="profile-card-body">
+                    <div class="col-sm-12" id="label">
+                        <form action="{{url_for('src.views.users.updateuser', id=current_user.id, name=current_user.name)}}" method="POST" enctype="multipart/form-data">
+                            <div class="input-group mb-3">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </div>
+                                <input type="text" class="form-control" name="name" aria-label="Name" aria-describedby="basic-addon1" value="{{current_user.name}}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </div>
+                                <input type="text" class="form-control" readonly name="email" aria-label="Email" aria-describedby="basic-addon1" value="{{current_user.email}}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </div>
+                                <input type="file" class="form-control-file" name="profile" aria-label="profile" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-addon">
+                                    <img src="	https://lokomarket.co.ke/images/flags/16/ke.png" alt="">
+                                </div>
+                                <input type="text" class="form-control" value="{{current_user.phone}}" aria-label="Phone Number " aria-describedby="basic-addon1" name="phone">
+                            </div>
+                            <input type="submit" value="update details" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %} 
+{% block scripts %} 
+{% endblock scripts%}

@@ -1,0 +1,26 @@
+{% extends 'public/main.html'%}
+{% block body %}
+    <div class="container">
+        {%with messages=get_flashed_messages(with_categories=true)%} 
+            {% if messages %} 
+                {% for category, message in messages%}
+                    <div class="alert alert-{{category}}" role="alert">
+                        {{message}}
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                {% endfor %} 
+            {% endif %} 
+        {% endwith %}
+    </div>
+    <form method="POST" style="width:40%;margin-left:2rem;">
+        <div class="mb-3">
+            {{ form.password.label(for="password", class="form-label")}}
+            {{ form.password(id="password", class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.confirm_password.label(for="confirm-password", class="form-label")}}
+            {{ form.confirm_password(id="confirm-password", class="form-control")}}
+        </div>
+        {{ form.submit(class="btn btn-primary")}}
+    </form>
+{% endblock body %}

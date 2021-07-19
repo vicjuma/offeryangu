@@ -1,0 +1,335 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/floating-wpp.min.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/css/main.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">  
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon"> {{ moment.include_jquery() }} {{ moment.include_moment() }} {% if title %}
+
+    <title>OfferYangu | {{title}}</title>
+
+    {% else %}
+
+    <title>OfferYangu</title>
+
+    {% endif %} {% block head %} {% endblock head %}
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{{url_for('src.views.products.home')}}">
+            <img src="{{url_for('static', filename='images/logo.jpeg')}}" alt="">
+            <span class="offer">Offer</span><span class="yangu">Yangu</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto" style="padding-right: 1rem;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="brand">Bargain Hunters Community Marketplace</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.products.home')}}" class="nav-link">Home</a>
+                </li>
+
+                {% if current_user.is_authenticated %}
+
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.products.account')}}" class="nav-link">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.users.logout')}}" class="nav-link">Logout</a>
+                </li>
+
+                {% else %}
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Register</a>
+                </li>
+
+                {% endif %}
+
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.products.allproducts')}}" class="nav-link">All Products</a>
+                </li>
+                <li class="nav-item" id="free-ad">
+                    <a href="{{url_for('src.views.products.addproduct')}}" class="nav-link free-ad">Submit Free Ad</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid-lg jumbotron-fluid">
+        <h1 class="display-4-lg">Be the Next to get an Offer</h1>
+        <form class="form-inline" action="{{url_for('src.views.products.search')}}" method="GET">
+            <select name="category" class="select">
+                    <option value="Categories" selected>Categories</option>
+
+                    {% for category in cat %}
+
+                        <option value="{{category}}">{{category}}</option>
+
+                    {% endfor %}
+                </select>
+            <input type="text" placeholder="I am looking for..." name="q" class="inpfield" autocomplete="off">
+            <select name="loc" class="select" id="location">
+                    <option value="All in Kenya" selected>All in Kenya</option>
+
+                    {% for location in loc %}
+
+                        <option value="{{location}}">{{location}}</option>
+
+                    {% endfor %}
+
+                </select>
+            <button type="submit"><i class="bi bi-search"></i>&nbsp;Search</button>
+        </form>
+        <style>
+            .autocomplete-items {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .autocomplete-items-child {
+                padding: 5px;
+                height: auto;
+            }
+            
+            .autocomplete-items-child:hover {
+                background-color: rgb(218, 210, 210);
+            }
+            
+            .search-result {
+                visibility: hidden;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                height: 50px;
+                align-items: center;
+                flex-direction: column;
+                color: black;
+            }
+            
+            .autocomplete-items-cover {
+                background-color: white;
+                width: 40%;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .autocomplete-items {
+                padding: 5px;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+        <div class="search-result">
+            <div class="autocomplete-items-cover">
+                <div class="autocomplete-items">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block body %} {% endblock body%}
+
+    <!-- ---------------------SIGNUP MODAL--------------------- -->
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade signup-modal" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Signup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="flashes">
+                    <form method="POST" action="{{url_for('src.views.users.register')}}" id="signup_form" novalidate>
+                        {{ sign_form.csrf_token }}
+                        <div class="mb-3">
+                            {{ sign_form.username.label( for="username", class_="form-label")}} {{ sign_form.username( type="text", class_="form-control", id="username", placeholder="Username", autocomplete="off") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ sign_form.email.label( for="email", class_="form-label")}} {{ sign_form.email( type="text", class_="form-control", id="email", placeholder="E-mail", autocomplete="off") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ sign_form.phone.label( for="phone", class_="form-label")}} {{ sign_form.phone( type="text", class_="form-control", id="phone", placeholder="+254712345678", autocomplete="off") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ sign_form.password.label( for="password", class_="form-label")}} {{ sign_form.password( class_="form-control", id="password", placeholder="Password", autocomplete="off") }}
+                        </div>
+                        <div class="mb-3">
+                            <small>Already have an account? <a href="" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Log in</a> </small>
+                        </div>
+                        {{ sign_form.submit(class="btn btn-primary", id="sub_form") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ----------------------END OF SIGNUP MODAL------------ -->
+
+    <!-- ----------------------LOGIN MODAL-------------------- -->
+    <!-- Login Modal -->
+    <div class="modal fade signup-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{url_for('src.views.users.login')}}" class="login_form" onsubmit="return validate()">
+                        {{ log_form.csrf_token }}
+                        <div class="mb-3">
+                            {{ log_form.email.label( for="email", class_="form-label")}} {{ log_form.email( type="text", class_="form-control", id="email", placeholder="E-mail", autocomplete="off") }} {% if log_form.email.errors %}
+                            <ul class="errors">
+                                {% for error in log_form.email.errors %}
+                                <li class="error">
+                                    <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ log_form.password.label( for="password", class_="form-label")}} {{ log_form.password( class_="form-control", id="password", placeholder="Password", autocomplete="off") }}
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="loginCheck1">
+                            <label class="form-check-label" for="loginCheck1" name="remember">Remember Me</label>
+                        </div>
+                        <div class="mb-3">
+                            <small>Forgot password? <a href="" data-bs-toggle="modal" data-bs-target="#resetModal" data-bs-dismiss="modal">reset</a> </small>
+                        </div>
+                        {{ log_form.submit(class="btn btn-primary", id="log_form") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------ END OF LOGIN MODAL ----------------->
+
+    <!-- reset Modal -->
+    <div class="modal fade signup-modal" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{url_for('src.views.users.reset_password')}}" class="reset_form" onsubmit="return validate()">
+                        <div class="mb-3">
+                            <label for="resetInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="resetInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" name='request' autocomplete="off" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="main-footer">
+        <div class="container">
+                <div class="row" id="row-1">
+                    <div class="col-lg-4 col-sm-4 col-xs-6" id="column-1">
+                        <div class="widget">
+                            <h5 class="widgetheading">About Us</h5>
+                            <ul class="link-list">
+                                <li><a href="{{url_for('src.views.users.about')}}">About OfferYangu</a></li>
+                                <li><a href="{{url_for('src.views.users.privacy')}}">Privacy Policy</a></li>
+                                <li><a href="{{url_for('src.views.users.terms')}}">Terms and Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-6" id="column-1">
+                        <div class="widget">
+                            <h5 class="widgetheading">How it Works</h5>
+                            <ul class="link-list">
+                                <li><a href="{{url_for('src.views.users.sellers')}}">For Sellers</a></li>
+                                <li><a href="{{url_for('src.views.users.buyers')}}">For Buyers</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4" id="column-3">
+                        <div class="widget">
+                            <h5 class="widgetheading">Support</h5>
+                            <ul class="link-list">
+                                <li><a href="mailto:info@offeryangu.co.ke">info@offeryangu.co.ke.</a></li>
+                                <li><a href="{{url_for('src.views.users.safety')}}">Safety Tips</a></li>
+                                <li><a href="mailto:info@offeryangu.co.ke">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="row-2">
+                    <div class="col-xs-4 col-lg-4 col-sm-4" id="column-2"> 
+                        <div class="widget">
+                            <h5 class="widgetheading">Socials</h5>
+                            <ul class="link-list">
+                                <li><a href="#"><span><i class="fa fa-facebook"></i></span> Facebook</a></li>
+                                <li><a href="#"><span><i class="fa fa-instagram"></i></span> Instagram</a></li>
+                                <li><a href="#"><span><i class="fa fa-twitter"></i></span> Twitter</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-lg-4 col-sm-5" id="column-2-1">
+                        <div class="widget">
+                            <h5 class="widgetheading">Download App</h5>
+                            <ul class="link-list">
+                                <li><a href="#">Coming Soon on:</a></li>
+                                <li><a href="#">Google Play</a></li>
+                                <li><a href="#">App Store</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-lg-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright">
+                            <p>
+                                <span>&copy; OfferYangu 2021</span>
+                                <a href="https://offeryangu.co.ke" target="_blank"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="WAButton"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />  
+    <script type="text/javascript" src="{{url_for('static', filename='js/floating-wpp.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/whatsapp.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    {% block scripts%} {% endblock scripts%}
+</body>
+
+</html>

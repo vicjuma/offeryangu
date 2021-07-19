@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/chat.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Contacts</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{{url_for('src.views.products.home')}}">
+            <img src="{{url_for('static', filename='images/logo.jpeg')}}" alt="">
+            <span class="offer">Offer</span><span class="yangu">Yangu</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto" style="padding-right: 1rem;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="brand">Bargain Hunters Community Marketplace</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.products.home')}}" class="nav-link">Home</a>
+                </li>
+
+                {% if current_user.is_authenticated %}
+
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.products.account')}}" class="nav-link">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.users.logout')}}" class="nav-link">Logout</a>
+                </li>
+
+                {% else %}
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Register</a>
+                </li>
+
+                {% endif %}
+
+                <li class="nav-item">
+                    <a href="{{url_for('src.views.products.allproducts')}}" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item" id="free-ad">
+                    <a href="{{url_for('src.views.products.addproduct')}}" class="nav-link free-ad">Submit Free Ad</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-main">
+        <div class="chat-navbar">
+            <h4>{{seller.name}}</h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-8" id="chat-box">
+                <div class="title">
+                    <h6>Messages</h6>
+                    <hr />
+                </div>
+                <div class="chats">
+                    {% for messages in msg.all() %} {% if messages.sender_id != seller.id %}
+                    <div class="message-left">
+                        <p>{{messages.message}}</p>
+
+                    </div>
+                    {% else %}
+                    <div class="message-right">
+                        <p>{{messages.message}}</p>
+                    </div>
+                    {% endif %} {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-8">
+                <form class="row g-3 form chat-form">
+                    <div class="col-sm-9">
+                        <input type="text" name="chat" id="chat" class="form-control" aria-label="message" required placeholder="Type message ..." autocomplete="off">
+                    </div>
+                    <div class="col-sm">
+                        <input required type="submit" id="button" class="form-control btn btn-primary" value="send">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js" integrity="sha512-+l9L4lMTFNy3dEglQpprf7jQBhQsQ3/WvOnjaN/+/L4i0jOstgScV0q2TjfvRF4V+ZePMDuZYIQtg5T4MKr+MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{url_for('static', filename='js/chat.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $(".chat-form").on("submit", function(event) {
+                event.preventDefault();
+                var formValues = $(this).serialize();
+                $.post("", formValues, function(data) {
+                    location.reload()
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

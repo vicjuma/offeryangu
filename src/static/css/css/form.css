@@ -1,0 +1,422 @@
+/* =============================== DEMO CSS ================================ */
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+input,
+textarea,
+select,
+button {
+    font-size: 100%;
+    font-family: inherit;
+}
+
+:focus {
+    outline: 0;
+}
+
+body {
+    background: #eceff4;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+b {
+    font-weight: 600;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+    padding: 0;
+    width: 100%;
+}
+
+strong {
+    font-weight: 600;
+}
+
+*,
+*:after,
+*::before {
+    box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+
+/* ---- Clearfix ---- */
+
+.row:before,
+.row:after,
+.clearfix:before,
+.clearfix:after {
+    content: '';
+    display: table
+}
+
+.row:after,
+.clearfix:after {
+    clear: both
+}
+
+.row,
+.clearfix {
+    zoom: 1
+}
+
+main {
+    padding: 80px 0 0 0;
+}
+
+main>header {
+    padding: 40px 40px 10px 50px;
+}
+
+main>header h1 {
+    font-size: 21px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.05em;
+    text-shadow: 0 0 2px #FFF;
+}
+
+main>header h1 .icon {
+    color: #49BEA4;
+}
+
+main {
+    padding: 20px;
+}
+
+.header {
+    padding: 10px 0 20px 10px;
+    border-radius: 3px 0 0 3px;
+}
+
+.header>h1 {
+    font-size: 28px;
+}
+
+.header>p {
+    font-size: 12px;
+}
+
+.shadow {
+    box-shadow: 0 2px 1px 1px #E1E3E5;
+}
+
+.box {
+    background: #00008B;
+    color: white;
+    border-radius: 5px;
+    padding: 20px 20px 30px 20px;
+    margin: 0px 0 20px 0;
+}
+
+@media only screen and (min-width: 1280px) {
+    .box {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 55%;
+    }
+}
+
+
+/* ================================ END DEMO ================================ */
+
+/* =============================== GRID CSS ================================ */
+.row{
+    position: relative;
+    clear: both;
+}
+/** grids **/
+.g1, .g13, .g2, .g3, .g4 {
+    display: block;
+    float: left;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.g1 {
+    width: calc(25% - 20px);
+}
+.g13{
+    width: calc(33.33% - 20px);   
+}
+.g2 {
+    width: calc(50% - 20px);
+}
+.g3 {
+    width: calc(75% - 20px);
+}
+.g4 {
+    width: calc(100% - 20px);
+}
+
+@media only screen and (max-width: 699px) {
+    .g1, .g13, .g2, .g3, .g4{
+        width: calc(100% - 20px);
+    }
+    section.box{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        text-align: center;
+    }
+    p{
+        text-align: center;
+        font-size: 18px !important;
+        letter-spacing: .2rem !important;
+    }
+    h1 b{
+        font-size: 26px;
+        line-height: 1.5;
+        text-align: center;
+        letter-spacing: .5;
+    }
+}
+@media only screen and (min-width: 700px) {
+
+    /** attachment **/
+    .g-attach-left{
+        margin-left: 0 !important;
+    }
+    .g-attach-right{
+        margin-right: 0 !important;
+    }
+    .g-attach-top{
+        margin-top: 0 !important;
+    }
+    .g-attach-bottom{
+        margin-bottom: 0 !important;
+    }
+
+    .g1.g-attach-left, .g1.g-attach-right {
+        width: calc(25% - 10px);
+    }
+    .g13.g-attach-left, .g13.g-attach-right{
+        width: calc(33.33% - 10px);   
+    }
+    .g2.g-attach-left, .g2.g-attach-right {
+        width: calc(50% - 10px);
+    }
+    .g3.g-attach-left, .g3.g-attach-right {
+        width: calc(75% - 10px);
+    }
+    .g4.g-attach-left, .g4.g-attach-right {
+        width: calc(100% - 10px);
+    }
+
+    .g1.g-attach-left.g1.g-attach-right {
+        width: 25%;
+    }
+    .g13.g-attach-left.g13.g-attach-right{
+        width: 33.33%;
+    }
+    .g2.g-attach-left.g2.g-attach-right {
+        width: 50%;
+    }
+    .g3.g-attach-left.g3.g-attach-right {
+        width: 75%;
+    }
+    .g4.g-attach-left.g4.g-attach-right {
+        width: 100%;
+    }
+
+    /** fix borders **/
+    .field.g-attach-left > input, .field.g-attach-left > select{
+        border-radius: 0 3px 3px 0 !important;
+    }
+    .field.g-attach-right > input, .field.g-attach-right > select{
+        border-radius: 3px 0 0 3px !important;
+        border-right: 0 !important;
+    }
+    .field.g-attach-left.g-attach-right input, .field.g-attach-left.g-attach-right select{
+        border-radius: 0 !important;
+    }
+
+}
+/* ================================ END GRID ================================ */
+
+/* =============================== FORM CSS ================================= */
+.field {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 22px;
+    position: relative;
+}
+
+.field.focusIn label {
+    transform: translateY(0px) translateX(5px) scale(1.1);
+    color: #fff;
+}
+
+
+.form-default label {
+    color: #565C70;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
+    transform: translateY(32px) translateX(15px);
+    transition: all 0.4s cubic-bezier(.16, .81, .32, 1);
+}
+
+.form-default label[for=end_date]{
+    transform: translateY(0px) translateX(5px) scale(1.1);
+    color: #fff;
+}
+
+.form-default label[for=image1],
+.form-default label[for=image2] {
+    display: none;
+}
+
+.form-default input[type=number],
+.form-default input[type=text],
+.form-default input[type=datetime-local],
+.form-default textarea {
+    display: block;
+    width: 100%;
+    padding: 9px 10px 8px 10px;
+    border: 1px solid #dfdfdf;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #aaa;
+    box-shadow: inset 2px 2px 4px -1px #c5c5c5, inset 0 -10px 30px 0px #FFF;
+    background: #f5f5f5;
+    color: #000;
+    font-size: 0.9em;
+    border-radius: 3px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+}
+
+.form-default input[type=number]:focus,
+.form-default input[type=date]:focus,
+.form-default input[type=password]:focus,
+.form-default input[type=email]:focus,
+.form-default input[type=text]:focus,
+.form-default textarea[id=product_description]:focus {
+    border-color: gold;
+    outline: 0;
+    box-shadow: inset 2px 2px 4px -1px #c5c5c5, inset 0 -10px 30px 0px #FFF, 0 0 8px rgba(73, 190, 164, 0.3);
+}
+
+.form-default input[type=date] {
+    padding: 7px 10px 6px 10px;
+}
+
+.form-default select {
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: -1px;
+    padding: 8px;
+    position: relative;
+    top: -1px;
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    border: 1px solid #d1d1d1;
+    border-top-color: #ddd;
+    border-bottom-color: #b5b5b5;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 40%, #eeeeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(40%, #ffffff), color-stop(100%, #eeeeee));
+    background: -webkit-linear-gradient(top, #ffffff 40%, #eeeeee 100%);
+    background: -o-linear-gradient(top, #ffffff 40%, #eeeeee 100%);
+    background: -ms-linear-gradient(top, #ffffff 40%, #eeeeee 100%);
+    background: linear-gradient(to bottom, #ffffff 40%, #eeeeee 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+}
+
+.form-default select:focus {
+    box-shadow: none;
+    border-bottom-color: #d1d1d1;
+    background: #f9f9f9;
+    color: #000;
+}
+
+/* ========================= END FORM ============================= */

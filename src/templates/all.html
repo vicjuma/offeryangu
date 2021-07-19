@@ -1,0 +1,233 @@
+{% block head %} 
+    <style>
+
+        @media (min-width: 960px){
+            .jumbotron-fluid h1{
+                display:none;
+            }
+            .jumbotron-fluid {
+                height:150px;
+                padding-top: 100px;
+                border-radius: 0;
+                margin-bottom: 2rem;
+            }
+            .jumbotron-fluid input,
+            .jumbotron-fluid select,
+            .jumbotron-fluid button {
+                height:30px;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
+    </style>
+{% endblock head %}
+{% extends 'public/main.html'%} {% block body %}
+    <div class="container">
+        <h2 style="font-size: 2rem;color: #00008B">Top Offers</h2>
+        <div class="row">
+            {% for product in products.items%}
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <a href="{{url_for('src.views.products.viewproduct', id=product.id)}}">
+                            <div class="card-img-top id_{{product.id}}">
+                                <img src="{{url_for('static', filename='images/uploads/'+product.path_1)}}" alt="" style="width: 100%;height:200px;">
+                            </div>
+                        </a>
+                        <div class="commission-btn"><small>{{(((product.market_price - product.price) / product.market_price ) * 100) | round}}% off</small></div>
+                        <div class="like-btn">
+                            {% if current_user.is_authenticated %}
+                                <small>
+                                    {% if product.id | likes | restrict %}
+                                        <form action="{{url_for('src.views.products.like', id=product.id)}}" method="POST">
+                                            <button type="submit" class="like-btn-foreign"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
+                                        </form>
+                                    {% else %}
+                                        <button class="like-btn-foreign"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
+                                    {% endif %}
+                                </small> 
+                            {%else%}
+                                <small>
+                                    <button class="like-btn-foreign" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
+                                </small> 
+                            {% endif %}
+                        </div>
+
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <a href="" class="product-name">{{product.name}}</a>
+                            </h6>
+                            <small class="canceled">
+                                Ksh.&nbsp;{{product.market_price}}
+                            </small>
+                            <span class="current">Ksh.&nbsp;{{product.price}}&nbsp;&nbsp;&nbsp;</span>
+                            <p>
+                                <small class="location">Posted from {{product.location}} | offer ending on {{ (product.date_ending).date().day ~ "th" }}&nbsp;{{ calendar.month_abbr[(product.date_ending).date().month] }}&nbsp;{{ (product.date_ending).date().year }}
+                                </small>
+                            </p>
+                        </div>
+                        <h6 class="categories">
+                            {% if product.id | likes | restrict %}
+                                <small class="Description"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes | haven't liked this product</small>
+                            {% else %}
+                                <small class="Description"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;liked</small>
+                            {% endif %}
+                        </h6>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row pagination">
+        {% for pages in products.iter_pages()%} 
+            {% if pages %}
+                <a href="{{url_for('src.views.products.allproducts', page=pages)}}">{{pages}}</a> 
+            {% endif %} 
+        {% endfor %}
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Signup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="container-fluid first-container">
+                    {%with messages=get_flashed_messages(with_categories=true)%} 
+                        {% if messages %} 
+                            {% for category, message in messages%}
+                                <div class="alert alert-{{category}}" role="alert">
+                                    {{message}}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            {% endfor %} 
+                        {% endif %} 
+                    {% endwith %}
+                </div>
+                <div class="modal-body" id="flashes">
+                    <form method="POST" action="{{url_for('src.views.users.register')}}" id="signup_form">
+                        {{ sign_form.csrf_token }}
+                        <div class="mb-3">
+                            {{ sign_form.username.label(
+                                for="username", class_="form-label")}}
+                            {{ sign_form.username(
+                                type="text", class_="form-control", id="username", placeholder="Username", autocomplete="off") }}
+                            {% if sign_form.username.errors %}
+                                <ul class="errors">
+                                    {% for error in sign_form.username.errors %}
+                                        <li class="error">
+                                            <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ sign_form.email.label(
+                                for="email", class_="form-label")}}
+                            {{ sign_form.email(
+                                type="text", class_="form-control", id="email", placeholder="E-mail", autocomplete="off") }}
+                            {% if sign_form.email.errors %}
+                                <ul class="errors">
+                                    {% for error in sign_form.email.errors %}
+                                        <li class="error">
+                                            <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ sign_form.phone.label(
+                                for="phone", class_="form-label")}}
+                            {{ sign_form.phone(
+                                type="text", class_="form-control", id="phone", placeholder="Phone", autocomplete="off") }}
+                            {% if sign_form.phone.errors %}
+                                <ul class="errors">
+                                    {% for error in sign_form.phone.errors %}
+                                        <li class="error">
+                                            <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ sign_form.password.label(
+                                for="password", class_="form-label")}}
+                            {{ sign_form.password(
+                                class_="form-control", id="password", placeholder="Password", autocomplete="off") }}
+                            {% if sign_form.password.errors %}
+                                <ul class="errors">
+                                    {% for error in sign_form.password.errors %}
+                                        <li class="error">
+                                            <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        {{ sign_form.submit(class="btn btn-primary", id="sub_form") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade login-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{url_for('src.views.users.login')}}" class="login_form" onsubmit="return validate()">
+                        {{ log_form.csrf_token }}
+                        <div class="mb-3">
+                            {{ log_form.email.label(
+                                for="email", class_="form-label")}}
+                            {{ log_form.email(
+                                type="text", class_="form-control", id="email", placeholder="E-mail", autocomplete="off") }}
+                            {% if log_form.email.errors %}
+                                <ul class="errors">
+                                    {% for error in log_form.email.errors %}
+                                        <li class="error">
+                                            <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ log_form.password.label(
+                                for="password", class_="form-label")}}
+                            {{ log_form.password(
+                                class_="form-control", id="password", placeholder="Password", autocomplete="off") }}
+                            {% if log_form.password.errors %}
+                                <ul class="errors">
+                                    {% for error in log_form.password.errors %}
+                                        <li class="error">
+                                            <i class="fas fa-exclamation"></i> <span class="error-message">{{ error }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="loginCheck1">
+                            <label class="form-check-label" for="loginCheck1" name="remember">Remember Me</label>
+                        </div>
+                        <div class="mb-3">
+                            <small>Forgot password? <a href="" data-bs-toggle="modal" data-bs-target="#resetModal">reset</a> </small>
+                        </div>
+                        {{ sign_form.submit(class="btn btn-primary", id="log_form") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body%} {% block scripts%}
+{% endblock scripts%}

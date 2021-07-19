@@ -1,0 +1,8 @@
+{% extends 'public/main.html'%}
+{% block body %}
+    <div class="container" style="text-align: center">
+        <img src="{{url_for('static', filename='images/403.png')}}" alt="" srcset="" style="width:50%; height:auto;text-align: center">
+        <p style="color: black;font-size:1.2rem">You are forbidden from accessing this pages</p>
+        <button class="btn btn-primary" style="margin:1rem;">Homepage</button>
+    </div>
+{% endblock body %}

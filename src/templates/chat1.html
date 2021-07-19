@@ -1,0 +1,74 @@
+{% block head %} 
+    <link rel="stylesheet" href="{{url_for('static', filename='css/chat.css')}}">
+{% endblock head %}
+{% extends 'public/main.html'%} {% block body %}
+    <div class="container-fluid">
+        <section class="">
+            <div class="navbar-chat">
+                <h6 lass="text text-capitalize">{{seller.name}}</h6>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12" id="contacts-messages">
+                    <div class="contacts">
+                        <ul>
+                            {% for users in user %} {% if users.id != current_user.id %} {% if current_user.is_following(users.name)%}
+                            <li>
+                                <img src="{{users.generate_gravatar()}}" alt="">
+                                <h6><a href="{{url_for('chat', clientid=client.id, sellerid=users.id)}}">{{users.name}}</a></h6>
+                            </li>
+                            {% endif %} {% endif%} {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="message-body">
+                        <div class="chat-body">
+                            <div class="messages">
+                                <div class="messages-body">
+                                    {% for messages in msg.all() %} {% if messages.sender_id != seller.id %}
+                                    <div class="display-left">
+                                        {{messages.message}}
+                                    </div>
+                                    {%else %}
+                                    <div class="display-right">
+                                        {{messages.message}}
+                                    </div>
+                                    {% endif %} {% endfor %}
+                                </div>
+                            </div>
+                            <div>
+                                
+                            </div>
+                            <form class="chat-form">
+                                <div class="row">
+                                  <div class="col-sm-6 col-md-8 col-lg-4">
+                                    <input type="text" name="chat" id="chat" required placeholder="Type message ..." autocomplete="off" class="form-control input">
+                                  </div>
+                                  <input type="submit" value="send" class="btn btn-primary btn-sm col-sm-2 col-md-2 col-lg-2 col-form-label">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock body%} {% block scripts%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js" integrity="sha512-+l9L4lMTFNy3dEglQpprf7jQBhQsQ3/WvOnjaN/+/L4i0jOstgScV0q2TjfvRF4V+ZePMDuZYIQtg5T4MKr+MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{url_for('static', filename='js/chat.js')}}"></script>
+{% endblock scripts%}
+    <script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".chat-form").on("submit", function(event) {
+                event.preventDefault();
+                var formValues = $(this).serialize();
+                $.post("", formValues, function(data) {
+                    location.reload()
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

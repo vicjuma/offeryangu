@@ -1,0 +1,195 @@
+.user-info {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display: flex;
+}
+
+.statistics {
+    width: 40%;
+    padding: 20px;
+    height: 100%;
+    background-color: rgba(235, 233, 233, 0.849);
+}
+
+
+/* styles */
+
+.accordion {
+    background-color: rgba(235, 233, 233, 0.849);
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion__items {
+    position: relative;
+    padding: 10px;
+    color: black;
+    cursor: pointer;
+}
+
+.accordion__items:after {
+    content: "";
+    color: greenyellow;
+    transition: transform 0.25s ease 0.1s;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    transform: translateY(-50%) rotate(-45deg);
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.accordion__items.active {
+    background-color: #000;
+    color: white;
+}
+
+.accordion__items.active:after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.accordion__content {
+    transition: opacity 1s ease 0.25s, height 0.25s ease;
+    background-size: cover;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.accordion-list {
+    background-color: #000;
+}
+
+.accordion-list a {
+    text-decoration: none;
+    color: white;
+}
+
+.accordion__content__txt {
+    transition: opacity 0.3s ease 0.6s, transform 0.3s ease 0.6s;
+    transform: scaleY(0);
+    opacity: 0;
+}
+
+.accordion__content.open {
+    height: auto;
+    overflow-y: hidden;
+    opacity: 1;
+    padding: 10px;
+}
+
+.accordion__content.open {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.accordion__content.open .accordion__content__txt {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+
+/* end of accordion */
+
+.update-details {
+    width: 100%;
+    padding: 20px;
+}
+
+.news-alerts {
+    display: flex;
+    width: 100%;
+    background-color: rgba(235, 233, 233, 0.849);
+    padding: 10px !important;
+    border-radius: 2px;
+    padding: 10px;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.imagedet {
+    display: flex;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.personal-info {
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.966);
+    height: auto;
+}
+
+.gravatarimg {
+    width: 80px;
+    border: 2px solid inherit;
+    margin-right: 5px;
+}
+
+.myprd {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.myprd:hover {
+    background-color: rgba(159, 209, 224, 0.801);
+}
+
+.prdname {
+    margin-right: auto;
+    width: 60%;
+}
+
+.prdfunc {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.prdfunc a {
+    text-decoration: none;
+}
+
+.update-modal {
+    height: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.update-info {
+    width: 100%;
+}
+
+
+/* table styling */
+
+.modal-body {
+    height: auto;
+}
+
+table {
+    border-collapse: collapse;
+    min-width: 100%;
+    border-radius: 5px 5px 0 0;
+    height: 100%;
+}
+
+thead {
+    background-color: rgb(207, 207, 207);
+    padding: 10px;
+    height: 20px;
+}
+
+td {
+    padding: 5px;
+}
+
+tbody tr {
+    border: 1px solid #dddddd;
+}
