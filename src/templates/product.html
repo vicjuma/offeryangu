@@ -23,12 +23,13 @@
         }
     }
 </style>
-{% endblock head%} {% block body %} {%with messages=get_flashed_messages(with_categories=true)%} {% if messages %} {% for category, message in messages%}
-<div class="alert alert-{{category}}" role="alert">
-    {{message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-</div>
-{% endfor %} {% endif %} {% endwith %}
+{% endblock head%} {% block body %} 
+    {%with messages=get_flashed_messages(with_categories=true)%} {% if messages %} {% for category, message in messages%}
+        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
 <section class="container-fluid" style="margin-top: 2rem;">
     <div class="row">
         <div class="column-img col-md-9 col-sm-12 img-featured" style="position: relative;">
@@ -46,11 +47,11 @@
                                     <button type="submit" style="background-color: rgba(0, 0, 139, .5);height:40px; border-style: none; color: white;padding:.5rem;"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
                                 </form>
                             {% else %}
-                                <button style="background-color: rgba(0, 0, 139, .5); border-radius: 5px; height:40px; border-style: none; color: white;"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
+                                <button style="background-color: rgba(0, 0, 139, .5);height:40px; border-style: none; color: white;padding:.5rem;"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes</button>
                             {% endif %}
                         </small> {%else%}
                 <small>
-                            <button style="background-color: rgba(0, 0, 139, .5); border-radius: 5px; border-style: none; height:40px; color: white;width:50px;" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                            <button style="background-color: rgba(0, 0, 139, .5);height:40px; border-style: none; color: white;padding:.5rem;" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
                                 <i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;{{product.id | pipe}} likes
                             </button>
                         </small> {% endif %}

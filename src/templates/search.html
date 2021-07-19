@@ -50,7 +50,7 @@
 
                 <div class="card-body">
                     <h6 class="card-title">
-                        <a href="" class="product-name">{{product.name}}</a>
+                        <a href="{{url_for('src.views.products.viewproduct', id=product.id)}}" class="product-name">{{product.name}}</a>
                     </h6>
                     <small class="canceled">
                                 Ksh.&nbsp;{{product.market_price}}

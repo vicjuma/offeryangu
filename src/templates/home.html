@@ -1,9 +1,9 @@
 {% block head %} {% endblock%} {% extends 'public/main.html'%} {% block body %}
 <div>
     {%with messages=get_flashed_messages(with_categories=true)%} {% if messages %} {% for category, message in messages%}
-    <div class="alert alert-{{category}}" role="alert">
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
         {{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %} {% endif %} {% endwith %}
 </div>
@@ -89,7 +89,7 @@
 
                     <div class="card-body">
                         <h6 class="card-title">
-                            <a href="" class="product-name">{{product.name}}</a>
+                            <a href="{{url_for('src.views.products.viewproduct', id=product.id)}}" class="product-name">{{product.name}}</a>
                         </h6>
                         <small class="canceled">
                                     Ksh.&nbsp;{{product.market_price}}
